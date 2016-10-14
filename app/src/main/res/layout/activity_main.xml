@@ -16,10 +16,9 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:layout_centerHorizontal="true"
-        android:hint="Number of traits in cross"
+        android:hint="#"
         android:layout_alignParentTop="true"
         android:id="@+id/numberoftraitsbox"/>
-
 
     <TableLayout
         android:layout_width="wrap_content"
