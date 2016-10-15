@@ -7,8 +7,11 @@ import android.widget.*;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-public class MainActivity extends AppCompatActivity {
+import net.piestudios.app.punnettsquare.InputFilterMinMax;
+import android.text.InputFilter;
+import android.text.Spanned;
 
+public class MainActivity extends AppCompatActivity {
     // Number of traits box and variable
     EditText numberoftraitslistner;
     int numberoftraits;
@@ -37,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Also don't care
+                // InputFilterMinMax function call
+                EditText et = (EditText) findViewById(R.id.numberoftraitsbox);
+                et.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "5")});
             }
 
             @Override
@@ -50,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
                     // Set numberoftraits to a string (value can be viewed as a toast for testing)
                     numberoftraits = Integer.parseInt(s.toString());
                     //Toast.makeText(getApplicationContext(), numberoftraits + "", Toast.LENGTH_SHORT).show();
-
-                    // Range for numberoftraitsbox
-                    numberoftraits = limit(numberoftraitslistner, numberoftraits, 0, 5); // limin=0, limax=5
 
                     // Create trait text boxs based on numberoftraits number
                     for(int i = 0; i < numberoftraits; i++) {
@@ -71,33 +73,6 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), "Can't be empty", Toast.LENGTH_SHORT).show();
                 }
             }
-            // limit function
-            private int limit(EditText x,int z,int limin,int limax){
-                if( x.getText().toString()==null || x.getText().toString().length()==0){
-                    x.setText(Integer.toString(limin));
-                    return z=0;
-                }
-                else{
-                    z = Integer.parseInt(x.getText().toString());
-                    if(z <limin || z>limax){
-                        int num = 10;
-                        if(z < num){
-                            x.setText(Integer.toString(limin));
-                            Toast.makeText(getApplicationContext(), z + " is to large. Reset to 0.", Toast.LENGTH_SHORT).show();
-                            return  z=0;
-                        }
-                        else{
-                            x.setText(Integer.toString(limax));
-                            Toast.makeText(getApplicationContext(), "Reset to " + limax, Toast.LENGTH_SHORT).show();
-                            return z=limax;
-                        }
-                    }
-                    else
-                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                        return z = Integer.parseInt(x.getText().toString());
-                }
-            }
-            // End limit function
         });
         // End listner function
     }

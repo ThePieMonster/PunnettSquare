@@ -18,7 +18,10 @@
         android:layout_centerHorizontal="true"
         android:hint="#"
         android:layout_alignParentTop="true"
-        android:id="@+id/numberoftraitsbox"/>
+        android:id="@+id/numberoftraitsbox"
+        android:maxLength="1"
+        android:ellipsize="end"
+        android:gravity="end"/>
 
     <TableLayout
         android:layout_width="wrap_content"
