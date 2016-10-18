@@ -2,6 +2,7 @@ package net.piestudios.app.punnettsquare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Lock rotation to portait
+        super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Setting parent 1 and 2 rows
         numberoftraitslistner = (EditText) findViewById(R.id.numberoftraitsbox);
