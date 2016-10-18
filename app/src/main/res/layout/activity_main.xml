@@ -11,6 +11,14 @@
     android:background="@color/colorBlack"
     tools:context="net.piestudios.app.punnettsquare.MainActivity">
 
+    <TextView
+        android:text="Number of Traits"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/numbertextView" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,8 +26,9 @@
         android:inputType="number"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorGray"
         android:hint="#"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/numbertextView"
         android:id="@+id/numberoftraitsbox"
         android:maxLength="1"
         android:ellipsize="end"
@@ -39,7 +48,13 @@
                 android:text="Parent 1"/>
         </TableRow>
         <TableRow
-            android:id="@+id/row1"></TableRow>
+            android:id="@+id/row1">
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:visibility="invisible" />
+        </TableRow>
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
@@ -48,7 +63,13 @@
                 android:text="Parent 2"/>
         </TableRow>
         <TableRow
-            android:id="@+id/row2"></TableRow>
+            android:id="@+id/row2">
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:visibility="invisible" />
+        </TableRow>
     </TableLayout>
 
     <Button
@@ -68,5 +89,4 @@
         android:id="@+id/square">
 
     </TableLayout>
-
 </RelativeLayout>

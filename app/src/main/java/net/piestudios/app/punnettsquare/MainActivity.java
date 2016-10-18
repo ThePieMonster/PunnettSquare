@@ -15,6 +15,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 
 public class MainActivity extends AppCompatActivity {
+
     // Number of traits box and variable
     EditText numberoftraitslistner;
     int numberoftraits;
@@ -53,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // InputFilterMinMax function call
-                EditText et = (EditText) findViewById(R.id.numberoftraitsbox);
-                et.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "3")});
+                numberoftraitslistner.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "3")});
             }
 
             @Override
@@ -63,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
                     // Reset row values when new number is entered
                     row1.removeAllViews();
                     row2.removeAllViews();
+                    if (numberoftraitslistner.getText().toString().length() == 0) {
+                        row1.addView(new EditText(getApplicationContext()));
+                        //((EditText) row1.getVirtualChildAt(0)).setText("NA");
+                        ((EditText) row1.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
+                        row2.addView(new EditText(getApplicationContext()));
+                        //((EditText) row2.getVirtualChildAt(0)).setText("NA");
+                        ((EditText) row2.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
+                    }
+
 
                     // Set numberoftraits to a string (value can be viewed as a toast for testing)
                     numberoftraits = Integer.parseInt(s.toString());
