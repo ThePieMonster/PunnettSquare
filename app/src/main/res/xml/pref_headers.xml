@@ -1,0 +1,25 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+    <!--
+    <header
+        android:fragment="net.piestudios.app.punnettsquare.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/pref_header_general" />
+
+        <header
+            android:fragment="net.piestudios.app.punnettsquare.SettingsActivity$NotificationPreferenceFragment"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="@string/pref_header_notifications" />
+
+        <header
+            android:fragment="net.piestudios.app.punnettsquare.SettingsActivity$DataSyncPreferenceFragment"
+            android:icon="@drawable/ic_sync_black_24dp"
+            android:title="@string/pref_header_data_sync" />
+    -->
+    <header
+        android:fragment="net.piestudios.app.punnettsquare.SettingsActivity$ThemePreferenceFragment"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/pref_header_theme" />
+
+</preference-headers>

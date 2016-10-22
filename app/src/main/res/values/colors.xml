@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00CC00</color><!-- 3F51B5 -->
-    <color name="colorPrimaryDark">#00B700</color><!-- 303F9F -->
+    <color name="colorPrimary">#00CC00</color><!-- App Bar -->
+    <color name="colorPrimaryDark">#00B700</color><!-- Notifications Bar -->
     <color name="colorAccent">#00CC00</color><!-- cursor -->
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>

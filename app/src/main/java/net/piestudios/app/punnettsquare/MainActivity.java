@@ -2,8 +2,11 @@ package net.piestudios.app.punnettsquare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.preference.ListPreference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(id) {
             case R.id.settings:
-                //startActivity(new Intent(this, settings.class));
+                Intent pref = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(pref);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     // Number of traits box and variable
     EditText numberoftraitslistner;
@@ -47,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
     String[] parent1R;
     String[] parent2D;
     String[] parent2R;
-
-    // Table Layout
-    // TableLayout layout = (TableLayout) findViewById(R.id.table);
     TableRow row1;
     TableRow row2;
 
@@ -57,8 +59,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Lock rotation to portait
         super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+
+
+
+
 
         // Setting parent 1 and 2 rows
         numberoftraitslistner = (EditText) findViewById(R.id.numberoftraitsbox);
@@ -129,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
         });
         // End listener function
     }
+
+
 
     public void onClick(View view) {
         InputMethodManager inputManager = (InputMethodManager)
