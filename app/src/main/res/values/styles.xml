@@ -3,15 +3,23 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/LimeGreen</item>
+        <item name="colorPrimaryDark">@color/DarkLimeGreen</item>
+        <item name="colorAccent">@color/Lime</item>
+        <item name="android:windowBackground">@color/WhiteSmoke</item>
     </style>
 
-    <style name="AppThemeDark" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorBlack</item>
-        <item name="colorPrimaryDark">@color/colorWhite</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppThemeDark">
+        <item name="colorPrimary">@color/LimeGreen</item>
+        <item name="colorPrimaryDark">@color/DarkLimeGreen</item>
+        <item name="colorAccent">@color/Lime</item>
+        <item name="android:windowBackground">@color/DarkGray</item>
+
+        <item name="android:textColor">@color/Red</item>
+        <item name="android:textColorHint">@color/Gray</item>
+        <item name="android:textColorPrimary">@color/Green</item>
+        <item name="android:textColorSecondary">@color/Blue</item>
+        <item name="android:textColorTertiary">@color/Yellow</item>
     </style>
 
 </resources>

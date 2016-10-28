@@ -16,13 +16,18 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -54,8 +59,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 // the preference's 'entries' list.
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
-
-
 
                 // Set the summary to reflect the new value.
                 preference.setSummary(
@@ -127,7 +130,46 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
+        // ******************** Start Theme Preferences ********************
+        //Toast.makeText(getApplicationContext(), "You're in a Settings Menu", Toast.LENGTH_SHORT).show();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        switch(sp.getString("theme_list", "-1")) {
+            case "0":
+                setTheme(R.style.AppTheme);
+                break;
+            case "1":
+                setTheme(R.style.AppThemeDark);
+                break;
+            default:
+                break;
+        }
+
+        SharedPreferences.OnSharedPreferenceChangeListener prefListener =
+                new SharedPreferences.OnSharedPreferenceChangeListener() {
+                    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                        if (key.equals("theme_list")) {
+                            /*String theme = prefs.getString("theme_list", "-1");
+                            switch (theme) {
+                                case "0":
+                                    //Toast.makeText(getApplicationContext(), "Light Theme Selected", Toast.LENGTH_SHORT).show();
+                                    recreate();
+                                    break;
+                                case "1":
+                                    //Toast.makeText(getApplicationContext(), "Dark Theme Selected", Toast.LENGTH_SHORT).show();
+                                    recreate();
+                                    break;
+                                default:
+                                    //Toast.makeText(getApplicationContext(), "No Theme Selected", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }*/
+                            recreate();
+                        }
+                    }
+                };
+        sp.registerOnSharedPreferenceChangeListener(prefListener);
+        // ******************** End Theme Preferences ********************
+
         super.onCreate(savedInstanceState);
         setupActionBar();
     }
@@ -274,12 +316,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class ThemePreferenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_theme);
             setHasOptionsMenu(true);
-
 
             bindPreferenceSummaryToValue(findPreference("theme_list"));
         }

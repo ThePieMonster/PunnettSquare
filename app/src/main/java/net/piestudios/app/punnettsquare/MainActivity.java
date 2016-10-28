@@ -2,11 +2,9 @@ package net.piestudios.app.punnettsquare;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.preference.ListPreference;
-import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +14,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceManager;
+import android.preference.ListPreference;
+import android.content.SharedPreferences;
 
 import net.piestudios.app.punnettsquare.InputFilterMinMax;
 import android.text.InputFilter;
@@ -23,6 +26,7 @@ import android.text.Spanned;
 
 public class MainActivity extends AppCompatActivity {
 
+    // ********** Menu **********
     // Show menu
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -42,31 +46,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    // ********** Activity **********
     // Number of traits box and variable
     EditText numberoftraitslistner;
     int numberoftraits;
     TableLayout square;
 
-    String[] parent1D;
-    String[] parent1R;
-    String[] parent2D;
-    String[] parent2R;
+    String[][] parent1;
+    String[][] parent2;
     TableRow row1;
     TableRow row2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // ******************** Start Theme Preferences ********************
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        switch(sp.getString("theme_list", "-1")) {
+            case "0":
+                setTheme(R.style.AppTheme);
+                break;
+            case "1":
+                setTheme(R.style.AppThemeDark);
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.activity_main);
+        // ******************** Start Theme Preferences ********************
+
 
         // Lock rotation to portait
         super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-
-
-
-
 
 
         // Setting parent 1 and 2 rows
@@ -74,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         row1 = (TableRow) findViewById(R.id.row1);
         row2 = (TableRow) findViewById(R.id.row2);
         square = (TableLayout) findViewById(R.id.square);
-
 
 
         // Listening to numberoftraitsbox
@@ -87,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // InputFilterMinMax function call
-                numberoftraitslistner.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "3")});
+                numberoftraitslistner.setFilters(new InputFilter[]{new InputFilterMinMax("1", "3")});
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                try{
+                try {
                     // Reset row values when new number is entered
                     row1.removeAllViews();
                     row2.removeAllViews();
@@ -111,35 +122,27 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), numberoftraits + "", Toast.LENGTH_SHORT).show();
 
                     // Create trait text boxs based on numberoftraits number
-                    for(int i = 0; i < numberoftraits; i++) {
+                    for (int i = 0; i < numberoftraits; i++) {
                         row1.addView(new EditText(getApplicationContext()));
-                        ((EditText)row1.getVirtualChildAt(i)).setHint("Trait " + (i+1) + ":");
-                        ((EditText)row1.getVirtualChildAt(i)).setTextColor(Color.WHITE);
-                        ((EditText)row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
-                        ((EditText)row1.getVirtualChildAt(i)).setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+                        ((EditText) row1.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
+                        //((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.WHITE);
+                        //((EditText) row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
+                        ((EditText) row1.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
                         row2.addView(new EditText(getApplicationContext()));
-                        ((EditText)row2.getVirtualChildAt(i)).setHint("Trait " + (i+1) + ":");
-                        ((EditText)row2.getVirtualChildAt(i)).setTextColor(Color.WHITE);
-                        ((EditText)row2.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
-                        ((EditText)row2.getVirtualChildAt(i)).setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+                        ((EditText) row2.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
+                        //((EditText) row2.getVirtualChildAt(i)).setTextColor(Color.WHITE);
+                        //((EditText) row2.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
+                        ((EditText) row2.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
                     }
 
 
-
-
-
-
-
-
-                } catch (Exception e){
+                } catch (Exception e) {
                     //Toast.makeText(getApplicationContext(), "Can't be empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         // End listener function
     }
-
-
 
     public void onClick(View view) {
         InputMethodManager inputManager = (InputMethodManager)
@@ -148,10 +151,8 @@ public class MainActivity extends AppCompatActivity {
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
 
-        parent1D = new String[row1.getChildCount()];
-        parent1R = new String[row1.getChildCount()];
-        parent2D = new String[row1.getChildCount()];
-        parent2R = new String[row1.getChildCount()];
+        parent1 = new String[row1.getChildCount()][2];
+        parent2 = new String[row1.getChildCount()][2];
         square.removeAllViews();
         int length = (int) Math.pow(2, row1.getChildCount());
         int size = 0;
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 size = 250;
                 break;
             case 2:
-                size = 150;
+                size = 140;
                 break;
             case 3:
                 size = 74;
@@ -178,15 +179,15 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < row1.getChildCount(); i++) {
             if (row1.getVirtualChildAt(i) instanceof EditText){
-                parent1D[i] = ((EditText)row1.getVirtualChildAt(i)).getText().toString().substring(0,1);
-                parent1R[i] = ((EditText)row1.getVirtualChildAt(i)).getText().toString().substring(1);
+                parent1[i][0] = ((EditText)row1.getVirtualChildAt(i)).getText().toString().substring(0,1).toUpperCase();
+                parent1[i][1] = ((EditText)row1.getVirtualChildAt(i)).getText().toString().substring(1).toLowerCase();
             }
         }
 
         for (int i = 0; i < row2.getChildCount(); i++) {
             if (row2.getVirtualChildAt(i) instanceof EditText){
-                parent2D[i] = ((EditText)row2.getVirtualChildAt(i)).getText().toString().substring(0,1);
-                parent2R[i] = ((EditText)row2.getVirtualChildAt(i)).getText().toString().substring(1);
+                parent2[i][0] = ((EditText)row2.getVirtualChildAt(i)).getText().toString().substring(0,1).toUpperCase();
+                parent2[i][1] = ((EditText)row2.getVirtualChildAt(i)).getText().toString().substring(1).toLowerCase();
             }
         }
 
@@ -194,26 +195,45 @@ public class MainActivity extends AppCompatActivity {
             square.addView(new TableRow(getApplicationContext()));
             for (int j = 0; j < length + 1; j++) {
                 ((TableRow)square.getChildAt(i)).addView(new TextView(getApplicationContext()));
-                ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.WHITE);
+                //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.WHITE);
+                //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
                 ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setLayoutParams(squareParams);
             }
         }
 
-        ((TextView)((TableRow)square.getChildAt(0)).getChildAt(0)).setBackgroundColor(Color.BLACK);
+        //((TextView)((TableRow)square.getChildAt(0)).getChildAt(0)).setBackgroundColor(Color.BLACK);
 
         // Mapping traits to alleles
         switch (row1.getChildCount()) {
             case 1:
-                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(1)).setText(parent1D[0]);
-                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(1)).setTextColor(Color.BLACK);
-                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(2)).setText(parent1R[0]);
-                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(2)).setTextColor(Color.BLACK);
-                ((TextView)((TableRow) square.getChildAt(1)).getChildAt(0)).setText(parent2D[0]);
-                ((TextView)((TableRow) square.getChildAt(1)).getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView)((TableRow) square.getChildAt(2)).getChildAt(0)).setText(parent2R[0]);
-                ((TextView)((TableRow) square.getChildAt(2)).getChildAt(0)).setTextColor(Color.BLACK);
+                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(1)).setText(parent1[0][0]);
+                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(2)).setText(parent1[0][1]);
+                ((TextView)((TableRow) square.getChildAt(1)).getChildAt(0)).setText(parent2[0][0]);
+                ((TextView)((TableRow) square.getChildAt(2)).getChildAt(0)).setText(parent2[0][1]);
                 break;
             case 2:
+                String[] parent1Combo = new String[length];
+                String[] parent2Combo = new String[length];
+                int count = 0;
+                for (int i = 0; i < 2; i++){
+                    for (int j = 0; j < 2; j++) {
+                        parent1Combo[count] = parent1[0][i] + parent1[1][j];
+                        count++;
+                    }
+                }
+                count = 0;
+                for (int i = 0; i < 2; i++){
+                    for (int j = 0; j < 2; j++) {
+                        parent2Combo[count] = parent2[0][i] + parent2[1][j];
+                        count++;
+                    }
+                }
+                for (int i = 0; i < 4; i++) {
+                    ((TextView)((TableRow) square.getChildAt(0)).getChildAt(i+1)).setText(parent1Combo[i]);
+                }
+                for (int i = 0; i < 4; i++) {
+                    ((TextView)((TableRow) square.getChildAt(i+1)).getChildAt(0)).setText(parent2Combo[i]);
+                }
                 break;
             case 3:
                 break;

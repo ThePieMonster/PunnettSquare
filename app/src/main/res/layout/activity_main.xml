@@ -12,7 +12,6 @@
 
     <TextView
         android:text="Number of Traits"
-        android:textColor="@color/colorWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -24,8 +23,6 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorGray"
         android:hint="#"
         android:layout_below="@+id/numbertextView"
         android:id="@+id/numberoftraitsbox"
@@ -43,7 +40,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
                 android:text="Parent 1"/>
         </TableRow>
         <TableRow
@@ -58,7 +54,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
                 android:text="Parent 2"/>
         </TableRow>
         <TableRow

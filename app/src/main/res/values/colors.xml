@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00CC00</color><!-- App Bar -->
-    <color name="colorPrimaryDark">#00B700</color><!-- Notifications Bar -->
-    <color name="colorAccent">#00CC00</color><!-- cursor -->
-    <color name="colorBlack">#000000</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorGray">#808080</color>
+    <color name="Primary">#00CC00</color><!-- App Bar -->
+    <color name="PrimaryDark">#00B700</color><!-- Notifications Bar -->
+    <color name="Accent">#00CC00</color><!-- cursor -->
+    <color name="Black">#000000</color>
+    <color name="White">#FFFFFF</color>
+    <color name="WhiteSmoke">#F5F5F5</color>
+    <color name="Gray">#808080</color>
+    <color name="DarkGray">#282828</color>
+    <color name="Red">#FF0000</color>
+    <color name="Orange">#FFA500</color>
+    <color name="Yellow">#FFFF00</color>
+    <color name="Purple">#800080</color>
+    <color name="Blue">#0000FF</color>
+    <color name="Green">#008000</color>
+    <color name="Tan">#D2B48C</color>
+    <color name="Brown">#A52A2A</color>
+    <color name="Lime">#00FF00</color>
+    <color name="LimeGreen">#32CD32</color>
+    <color name="DarkLimeGreen">#2DB92D</color>
 </resources>
