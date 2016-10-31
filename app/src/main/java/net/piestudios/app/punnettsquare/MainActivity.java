@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             square.addView(new TableRow(getApplicationContext()));
             for (int j = 0; j < length + 1; j++) {
                 ((TableRow)square.getChildAt(i)).addView(new TextView(getApplicationContext()));
-                //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.WHITE);
+                ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.MAGENTA);
                 //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
                 ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setLayoutParams(squareParams);
             }
