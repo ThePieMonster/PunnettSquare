@@ -3,7 +3,9 @@ package net.piestudios.app.punnettsquare;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +59,24 @@ public class MainActivity extends AppCompatActivity {
     TableRow row1;
     TableRow row2;
 
+    // ******************** Start Accent Color ********************
+    int[][] states = new int[][] {
+            new int[] { android.R.attr.state_focused}, // enabled
+            //new int[] {-android.R.attr.state_enabled}, // disabled
+            //new int[] {-android.R.attr.state_checked}, // unchecked
+            new int[] { android.R.attr.state_window_focused}  // pressed
+    };
+
+    int[] colors = new int[] {
+            Color.GREEN,
+            //Color.BLUE,
+            //Color.YELLOW,
+            Color.GRAY
+    };
+
+    ColorStateList myColorAccentList = new ColorStateList(states, colors);
+    // ******************** Start Accent Color ********************
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_main);
-        // ******************** Start Theme Preferences ********************
+        // ******************** End Theme Preferences ********************
 
 
         // Lock rotation to portait
@@ -86,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         row1 = (TableRow) findViewById(R.id.row1);
         row2 = (TableRow) findViewById(R.id.row2);
         square = (TableLayout) findViewById(R.id.square);
-
 
         // Listening to numberoftraitsbox
         numberoftraitslistner.addTextChangedListener(new TextWatcher() {
@@ -125,11 +144,13 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < numberoftraits; i++) {
                         row1.addView(new EditText(getApplicationContext()));
                         ((EditText) row1.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
+                        ((EditText) row1.getVirtualChildAt(i)).setBackgroundTintList(myColorAccentList);
                         //((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.WHITE);
                         //((EditText) row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
                         ((EditText) row1.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
                         row2.addView(new EditText(getApplicationContext()));
                         ((EditText) row2.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
+                        ((EditText) row2.getVirtualChildAt(i)).setBackgroundTintList(myColorAccentList);
                         //((EditText) row2.getVirtualChildAt(i)).setTextColor(Color.WHITE);
                         //((EditText) row2.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
                         ((EditText) row2.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
