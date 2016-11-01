@@ -67,13 +67,15 @@
     </TableLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/table"
         android:text="Show Results"
         android:onClick="onClick"
         android:layout_centerHorizontal="true"
-        android:id="@+id/button"/>
+        android:id="@+id/button"
+        android:gravity="center"
+        android:background="?buttonStyle"/>
 
     <TableLayout
         android:layout_below="@id/button"

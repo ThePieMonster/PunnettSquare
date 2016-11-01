@@ -7,6 +7,9 @@
         <item name="colorPrimaryDark">@color/DarkLimeGreen</item>
         <item name="colorAccent">@color/Lime</item>
         <item name="android:windowBackground">@color/WhiteSmoke</item>
+
+        <item name="android:buttonStyle">@drawable/button_light_selector</item>
+        <item name="android:itemBackground">@color/WhiteSmoke</item>
     </style>
 
     <style name="AppThemeDark">
@@ -15,11 +18,26 @@
         <item name="colorAccent">@color/Lime</item>
         <item name="android:windowBackground">@color/DarkGray</item>
 
-        <item name="android:textColor">@color/Red</item>
+        <item name="android:buttonStyle">@drawable/button_dark_selector</item>
+        <item name="android:itemBackground">@color/DarkGray</item>
+        <item name="android:itemTextAppearance">@style/MenuTextApearanceDark</item>
+
+        <item name="android:dialogTheme">@style/DialogStyleDark</item>
+        <item name="android:alertDialogTheme">@style/DialogStyleDark</item>
+
+        <item name="android:editTextColor">@color/White</item>
         <item name="android:textColorHint">@color/Gray</item>
-        <item name="android:textColorPrimary">@color/Green</item>
-        <item name="android:textColorSecondary">@color/Blue</item>
-        <item name="android:textColorTertiary">@color/Yellow</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="android:textColorSecondary">@color/Gray</item>
+        <item name="android:textColorTertiary">@color/White</item>
+    </style>
+
+    <style name="MenuTextApearanceDark" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+    <style name="DialogStyleDark" parent="android:Theme.Material.Dialog">
+        <item name="android:colorAccent">@color/Lime</item>
     </style>
 
 </resources>
