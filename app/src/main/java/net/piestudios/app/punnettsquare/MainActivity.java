@@ -235,6 +235,11 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 String[] parent1Combo = new String[length];
                 String[] parent2Combo = new String[length];
+                String parentComboResult1 = new String();
+                String parentComboResult2 = new String();
+                String parentCombo1ResultFinal = new String();
+                String parentCombo2ResultFinal = new String();
+
                 int count = 0;
                 for (int i = 0; i < 2; i++){
                     for (int j = 0; j < 2; j++) {
@@ -255,6 +260,20 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < 4; i++) {
                     ((TextView)((TableRow) square.getChildAt(i+1)).getChildAt(0)).setText(parent2Combo[i]);
                 }
+
+                for (int i = 0; i < length; i++) {
+                    for (int j = 0; j < length; j++) {
+                        parentComboResult2 = parent1Combo[j];
+                        parentComboResult1 = parent2Combo[i];
+                        parentCombo1ResultFinal = parentComboResult2.substring(1, 2) + parentComboResult1.substring(1, 2);
+                        parentCombo2ResultFinal = parentComboResult2.substring(0, 1) + parentComboResult1.substring(0, 1);
+                        parentCombo2ResultFinal = parentCombo2ResultFinal + parentCombo2ResultFinal;
+
+                        ((TextView) ((TableRow) square.getChildAt(i+1)).getChildAt(j+1)).setText(parentCombo2ResultFinal);
+                    }
+                }
+
+
                 break;
             case 3:
                 break;
