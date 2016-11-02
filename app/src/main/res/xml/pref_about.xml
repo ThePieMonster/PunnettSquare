@@ -1,5 +1,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:selectable="true"
+        android:enabled="true"
+        android:key="key_about"
+        android:title="About Us"
+        android:summary="A little about the creators" />
 
+    <Preference
+        android:selectable="true"
+        android:enabled="true"
+        android:key="key_version"
+        android:title="Version"
+        android:summary="1.0.0" />
 
 </PreferenceScreen>

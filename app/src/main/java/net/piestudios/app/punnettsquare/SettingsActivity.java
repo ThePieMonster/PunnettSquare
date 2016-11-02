@@ -348,8 +348,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_about);
             setHasOptionsMenu(true);
-
-            //bindPreferenceSummaryToValue(findPreference("theme_list"));
         }
 
         @Override
