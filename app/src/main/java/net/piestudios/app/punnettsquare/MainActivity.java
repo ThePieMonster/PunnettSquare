@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     ColorStateList myColorAccentList = new ColorStateList(states, colors);
-    // ******************** Start Accent Color ********************
+    // ******************** End Accent Color ********************
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
             square.addView(new TableRow(getApplicationContext()));
             for (int j = 0; j < length + 1; j++) {
                 ((TableRow)square.getChildAt(i)).addView(new TextView(getApplicationContext()));
-                ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.MAGENTA);
+                ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.MAGENTA); // Delete this when done testing square creation
                 //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
                 ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setLayoutParams(squareParams);
             }
