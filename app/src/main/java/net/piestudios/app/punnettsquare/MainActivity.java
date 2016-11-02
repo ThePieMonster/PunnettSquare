@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                         parentComboResult1 = parent2Combo[i];
                         parentCombo1ResultFinal = parentComboResult2.substring(1, 2) + parentComboResult1.substring(1, 2);
                         parentCombo2ResultFinal = parentComboResult2.substring(0, 1) + parentComboResult1.substring(0, 1);
-                        parentCombo2ResultFinal = parentCombo2ResultFinal + parentCombo2ResultFinal;
+                        parentCombo2ResultFinal = parentCombo2ResultFinal + parentCombo1ResultFinal;
 
                         ((TextView) ((TableRow) square.getChildAt(i+1)).getChildAt(j+1)).setText(parentCombo2ResultFinal);
                     }
