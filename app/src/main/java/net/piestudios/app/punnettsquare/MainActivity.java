@@ -133,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
                         row2.addView(new EditText(getApplicationContext()));
                         //((EditText) row2.getVirtualChildAt(0)).setText("NA");
                         ((EditText) row2.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
+
+                        //Add code to reset boxes after new number is entered
                     }
 
 
@@ -227,10 +229,43 @@ public class MainActivity extends AppCompatActivity {
         // Mapping traits to alleles
         switch (row1.getChildCount()) {
             case 1:
-                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(1)).setText(parent1[0][0]);
-                ((TextView)((TableRow) square.getChildAt(0)).getChildAt(2)).setText(parent1[0][1]);
-                ((TextView)((TableRow) square.getChildAt(1)).getChildAt(0)).setText(parent2[0][0]);
+                /*((TextView)((TableRow) square.getChildAt(0)).getChildAt(1)).setText(parent1[0][0]);
+                //((TextView)((TableRow) square.getChildAt(0)).getChildAt(2)).setText(parent1[0][1]);
+                //((TextView)((TableRow) square.getChildAt(1)).getChildAt(0)).setText(parent2[0][0]);
                 ((TextView)((TableRow) square.getChildAt(2)).getChildAt(0)).setText(parent2[0][1]);
+                */
+                String[] parent1Combo1 = new String[length];
+                String[] parent2Combo1 = new String[length];
+                String parentCombo1Result1 = new String();
+                String parentCombo1Result2 = new String();
+                String parentCombo1ResultFinal1 = new String();
+                String parentCombo2ResultFinal1 = new String();
+
+
+                for (int i = 0; i < 2; i++) {
+                    ((TextView)((TableRow) square.getChildAt(0)).getChildAt(i+1)).setText(parent1[0][i]);
+                }
+
+                for (int i = 0; i < 2; i++) {
+                    ((TextView)((TableRow) square.getChildAt(i+1)).getChildAt(0)).setText(parent2[0][i]);
+                }
+
+                for (int i = 0; i < 2; i++) {
+                    parent1Combo1[i] = parent1[0][i];
+                    parent2Combo1[i] = parent2[0][i];
+                }
+
+                for (int i = 0; i < length; i++) {
+                    for (int j = 0; j < length; j++) {
+                        parentCombo1Result2 = parent1Combo1[j];
+                        parentCombo1Result1 = parent2Combo1[i];
+                        parentCombo1ResultFinal1 = parentCombo1Result2.substring(1) + parentCombo1Result1.substring(1);
+                        parentCombo2ResultFinal1 = parentCombo1Result2.substring(0) + parentCombo1Result1.substring(0);
+                        parentCombo2ResultFinal1 = parentCombo2ResultFinal1 + parentCombo1ResultFinal1;
+
+                        ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentCombo2ResultFinal1);
+                    }
+                }
                 break;
             case 2:
                 String[] parent1Combo = new String[length];
@@ -240,18 +275,18 @@ public class MainActivity extends AppCompatActivity {
                 String parentCombo1ResultFinal = new String();
                 String parentCombo2ResultFinal = new String();
 
-                int count = 0;
+                int cnt = 0;
                 for (int i = 0; i < 2; i++){
                     for (int j = 0; j < 2; j++) {
-                        parent1Combo[count] = parent1[0][i] + parent1[1][j];
-                        count++;
+                        parent1Combo[cnt] = parent1[0][i] + parent1[1][j];
+                        cnt++;
                     }
                 }
-                count = 0;
+                cnt = 0;
                 for (int i = 0; i < 2; i++){
                     for (int j = 0; j < 2; j++) {
-                        parent2Combo[count] = parent2[0][i] + parent2[1][j];
-                        count++;
+                        parent2Combo[cnt] = parent2[0][i] + parent2[1][j];
+                        cnt++;
                     }
                 }
                 for (int i = 0; i < 4; i++) {
@@ -272,8 +307,6 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView) ((TableRow) square.getChildAt(i+1)).getChildAt(j+1)).setText(parentCombo2ResultFinal);
                     }
                 }
-
-
                 break;
             case 3:
                 break;
