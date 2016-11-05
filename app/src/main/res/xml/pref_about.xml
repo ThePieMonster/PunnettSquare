@@ -4,14 +4,14 @@
         android:selectable="true"
         android:enabled="true"
         android:key="key_about"
-        android:title="About Us"
-        android:summary="A little about the creators" />
+        android:title="@string/pref_about_about_title"
+        android:summary="@string/pref_about_about_subtitle" />
 
     <Preference
         android:selectable="true"
         android:enabled="true"
         android:key="key_version"
-        android:title="Version"
-        android:summary="1.0.0" />
+        android:title="@string/pref_about_version_title"
+        android:summary="@string/pref_about_version_subtitle" />
 
 </PreferenceScreen>

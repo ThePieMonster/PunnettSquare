@@ -3,7 +3,9 @@ package net.piestudios.app.punnettsquare;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,12 +23,14 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.List;
@@ -149,26 +153,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 new SharedPreferences.OnSharedPreferenceChangeListener() {
                     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                         if (key.equals("theme_list")) {
-                            /*String theme = prefs.getString("theme_list", "-1");
-                            switch (theme) {
-                                case "0":
-                                    //Toast.makeText(getApplicationContext(), "Light Theme Selected", Toast.LENGTH_SHORT).show();
-                                    recreate();
-                                    break;
-                                case "1":
-                                    //Toast.makeText(getApplicationContext(), "Dark Theme Selected", Toast.LENGTH_SHORT).show();
-                                    recreate();
-                                    break;
-                                default:
-                                    //Toast.makeText(getApplicationContext(), "No Theme Selected", Toast.LENGTH_SHORT).show();
-                                    break;
-                            }*/
                             recreate();
                         }
                     }
                 };
         sp.registerOnSharedPreferenceChangeListener(prefListener);
-        // ******************** End Theme Preferences ********************
+        // ******************** End Theme Preferences **********************
 
         super.onCreate(savedInstanceState);
         setupActionBar();
@@ -343,11 +333,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class AboutPreferenceFragment extends PreferenceFragment {
 
+        int counter = 0; // Easter egg tap counter
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_about);
             setHasOptionsMenu(true);
+            addtListener();
         }
 
         @Override
@@ -360,6 +353,55 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+
+        // ******************** Start About Section & Version Easter Egg ********************
+        private void addtListener() {
+            Preference aboutPref = (Preference) findPreference("key_about");
+            Preference versionPref = (Preference) findPreference("key_version");
+
+            aboutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
+                public boolean onPreferenceClick(Preference pref)
+                {
+                    Intent intent = new Intent(AboutPreferenceFragment.this.getActivity().getApplicationContext(), AboutActivity.class);
+                    startActivity(intent);
+                    /*AlertDialog.Builder about = new AlertDialog.Builder(AboutPreferenceFragment.this.getActivity());
+                    about.setTitle("About Us");
+                    about.setMessage("Message");
+                    about.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    about.show();
+                    */
+                    return true;
+                }
+            });
+
+            versionPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
+                public boolean onPreferenceClick(Preference pref)
+                {
+                    counter++; // Increment on every tab
+
+                    if (counter == 1) {
+                        Toast.makeText(AboutPreferenceFragment.this.getActivity().getApplicationContext(), "Hey!", Toast.LENGTH_SHORT).show(); }
+                    if (counter == 3) {
+                        Toast.makeText(AboutPreferenceFragment.this.getActivity().getApplicationContext(), "What could this be?!", Toast.LENGTH_SHORT).show(); }
+                    if (counter == 5) {
+                        Toast.makeText(AboutPreferenceFragment.this.getActivity().getApplicationContext(), "Just one more tap!", Toast.LENGTH_SHORT).show(); }
+                    if (counter == 6) {
+                        // Open up easter egg activity
+                        counter = 0; // Reset counter
+                    }
+
+                    return true;
+                }
+            });
+        }
+        // ******************** End About & Version Easter Egg **********************
     }
 
 }

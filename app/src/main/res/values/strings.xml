@@ -89,6 +89,25 @@
         <item>1</item>
     </string-array>
 
-    <!-- Theme -->
+    <!-- About -->
+    <string name="title_activity_about">About Us</string>
     <string name="pref_header_about">About</string>
+
+    <string name="pref_about_about_title">About The App</string>
+    <string name="pref_about_about_subtitle">A little info about the app</string>
+
+    <string name="pref_about_version_title">Version</string>
+    <string name="pref_about_version_subtitle">1.0.0</string>
+
+    <string name="PS">Punnette Square</string>
+    <string name="PS_C">The Punnett square is a diagram that is used to predict an outcome of a particular cross or breeding experiment. It is named after Reginald C. Punnett, who devised the approach. The diagram is used by biologists to determine the probability of an offspring having a particular genotype. The Punnett square is a tabular summary of possible combinations of maternal alleles with paternal alleles. These tables can be used to examine the genotypic outcome probabilities of the offspring of a single trait (allele), or when crossing multiple traits from the parents.</string>
+
+    <string name="Mono">\nMonohybrid Cross</string>
+    <string name="Mono_C">Mono means one, this cross indicates that we are examining a single trait being crossed. This could mean (for example) that we are looking at eye color. Each genetic locus is always represented by two letters. So, in the case of eye color, say "B = Brown eyes" and "b = green eyes". In this example, both parents have the genotype Bb. For the example of eye color, we stated above, this would mean they both have brown eyes. They can produce gametes that contain either the B or the b allele. (It is conventional in genetics to use capital letters to indicate dominant alleles and lower-case letters to indicate recessive alleles.) The probability of an individual offspring\'s having the genotype BB is 25\u0025, Bb is 50\u0025, and bb is 25\u0025. The ratio of the phenotypes is 3:1, typical for a monohybrid cross. When assessing phenotype from this, "3" of the offspring will exhibit the "Brown" eyes and only one offspring will exhibit the "green" eyes. (3 are "B_" and 1 is "bb"). \n(M = Maternal, P = Paternal)</string>
+
+    <string name="Dihy">\nDihybrid Cross</string>
+    <string name="Dihy_C">More complicated crosses can be made by looking at two or more genes. The Punnett square works, however, only if the genes are independent of each other, which means that having a particular allele of gene "A" does not alter the probability of possessing an allele of gene "B". This is equivalent to stating that the genes are not linked, so that the two genes do not tend to sort together during meiosis.
+
+The following example illustrates a dihybrid cross between two double-heterozygote pea plants. R represents the dominant allele for shape (round), while r represents the recessive allele (wrinkled). A represents the dominant allele for color (yellow), while a represents the recessive allele (green). If each plant has the genotype RrAa, and since the alleles for shape and color genes are independent, then they can produce four types of gametes with all possible combinations: RA, Ra, rA, and ra.</string>
+
 </resources>
