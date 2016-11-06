@@ -19,4 +19,6 @@
     <color name="Lime">#00FF00</color>
     <color name="LimeGreen">#32CD32</color>
     <color name="DarkLimeGreen">#2DB92D</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

@@ -33,6 +33,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.piestudios.app.punnettsquare.SettingsActivity" />
         </activity>
+        <activity
+            android:name=".VersionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_version"
+            android:parentActivityName=".AboutActivity"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.piestudios.app.punnettsquare.AboutActivity" />
+        </activity>
     </application>
 
 </manifest>

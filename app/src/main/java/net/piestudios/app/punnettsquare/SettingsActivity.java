@@ -363,8 +363,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             {
                 public boolean onPreferenceClick(Preference pref)
                 {
-                    Intent intent = new Intent(AboutPreferenceFragment.this.getActivity().getApplicationContext(), AboutActivity.class);
-                    startActivity(intent);
+                    Intent intenta = new Intent(AboutPreferenceFragment.this.getActivity().getApplicationContext(), AboutActivity.class);
+                    startActivity(intenta);
                     /*AlertDialog.Builder about = new AlertDialog.Builder(AboutPreferenceFragment.this.getActivity());
                     about.setTitle("About Us");
                     about.setMessage("Message");
@@ -393,8 +393,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     if (counter == 5) {
                         Toast.makeText(AboutPreferenceFragment.this.getActivity().getApplicationContext(), "Just one more tap!", Toast.LENGTH_SHORT).show(); }
                     if (counter == 6) {
-                        // Open up easter egg activity
-                        counter = 0; // Reset counter
+                        counter = 0;
+                        Intent intentv = new Intent(AboutPreferenceFragment.this.getActivity().getApplicationContext(), VersionActivity.class);
+                        startActivity(intentv);
                     }
 
                     return true;
