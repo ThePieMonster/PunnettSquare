@@ -1,20 +1,51 @@
 package net.piestudios.app.punnettsquare;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Display;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.content.Context;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class VersionActivity extends AppCompatActivity {
+public class VersionActivity extends AppCompatActivity implements SensorEventListener {
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    private float mLastX, mLastY, mLastZ;
+    private boolean mInitialized;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private final float NOISE = (float) 2.0;
+
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -26,7 +57,6 @@ public class VersionActivity extends AppCompatActivity {
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -51,7 +81,7 @@ public class VersionActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
-    private View mControlsView;
+    //private View mControlsView;
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -60,7 +90,7 @@ public class VersionActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-            mControlsView.setVisibility(View.VISIBLE);
+            //mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -90,13 +120,93 @@ public class VersionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_version);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+// ++++++++++++++++++++++++++++++++++++++++ onCreate ++++++++++++++++++++++++++++++++++++++++++++
+        mInitialized = false;
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+        // Create Chromo X & Y images
+        final ImageView imageViewChromoX;
+        final ImageView imageViewChromoY;
+
+        imageViewChromoX = (ImageView) findViewById(R.id.chromosome_x);
+        Drawable drawableChromoX = getDrawable(R.drawable.chromosome_x);
+        imageViewChromoX.setImageDrawable(drawableChromoX);
+
+        imageViewChromoY = (ImageView) findViewById(R.id.chromosome_y);
+        Drawable drawableChromoY = getDrawable(R.drawable.chromosome_y);
+        imageViewChromoY.setImageDrawable(drawableChromoY);
+
+        View.OnTouchListener listener = new View.OnTouchListener()
+        {
+            PointF DownPT = new PointF(); // Record Mouse Position When Pressed Down
+            PointF StartPT = new PointF(); // Record Start Position of 'img'
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if (v.getTag() != null && v.getTag().equals("chromX")) {
+                    int eid = event.getAction();
+                    System.out.println("IF");
+                    switch (eid)
+                    {
+                        case MotionEvent.ACTION_MOVE :
+                            PointF mv = new PointF(event.getX() - DownPT.x, event.getY() - DownPT.y);
+                            imageViewChromoX.setX((int) (StartPT.x + mv.x));
+                            imageViewChromoX.setY((int) (StartPT.y + mv.y));
+                            StartPT = new PointF(imageViewChromoX.getX(), imageViewChromoX.getY());
+                            break;
+                        case MotionEvent.ACTION_DOWN :
+                            DownPT.x = event.getX();
+                            DownPT.y = event.getY();
+                            StartPT = new PointF(imageViewChromoX.getX(), imageViewChromoX.getY() );
+                            break;
+                        case MotionEvent.ACTION_UP :
+                            // Nothing have to do
+                            break;
+                        default :
+                            break;
+                    }
+                }
+                else if (v.getTag() != null && v.getTag().equals("chromY")) {
+                    System.out.println("ELSE");
+                    int eid = event.getAction();
+                    switch (eid)
+                    {
+                        case MotionEvent.ACTION_MOVE :
+                            PointF mv = new PointF( event.getX() - DownPT.x, event.getY() - DownPT.y);
+                            imageViewChromoY.setX((int)(StartPT.x+mv.x));
+                            imageViewChromoY.setY((int)(StartPT.y+mv.y));
+                            StartPT = new PointF(imageViewChromoY.getX(), imageViewChromoY.getY() );
+                            break;
+                        case MotionEvent.ACTION_DOWN :
+                            DownPT.x = event.getX();
+                            DownPT.y = event.getY();
+                            StartPT = new PointF(imageViewChromoY.getX(), imageViewChromoY.getY() );
+                            break;
+                        case MotionEvent.ACTION_UP :
+                            // Nothing have to do
+                            break;
+                        default :
+                            break;
+                    }
+                }
+                return true;
+            }
+        };
+
+        imageViewChromoX.setOnTouchListener(listener);
+        imageViewChromoY.setOnTouchListener(listener);
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
+        //mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
 
@@ -111,7 +221,8 @@ public class VersionActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
     }
 
     @Override
@@ -139,7 +250,7 @@ public class VersionActivity extends AppCompatActivity {
         if (mVisible) {
             hide();
         } else {
-            show();
+            //show();
         }
     }
 
@@ -149,7 +260,7 @@ public class VersionActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        mControlsView.setVisibility(View.GONE);
+        //mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -177,4 +288,92 @@ public class VersionActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        mSensorManager.unregisterListener(this);
+        super.onStop();
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do nothing
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // *** Accelerometer ***
+        TextView tvX = (TextView) findViewById(R.id.a_x_axis);
+        TextView tvY = (TextView) findViewById(R.id.a_y_axis);
+        TextView tvZ = (TextView) findViewById(R.id.a_z_axis);
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        if (!mInitialized) {
+            mLastX = x;
+            mLastY = y;
+            mLastZ = z;
+            tvX.setText("0.0");
+            tvY.setText("0.0");
+            tvZ.setText("0.0");
+            mInitialized = true;
+        } else {
+            float deltaX = Math.abs(mLastX - x);
+            float deltaY = Math.abs(mLastY - y);
+            float deltaZ = Math.abs(mLastZ - z);
+            if (deltaX < NOISE) deltaX = (float) 0.0;
+            if (deltaY < NOISE) deltaY = (float) 0.0;
+            if (deltaZ < NOISE) deltaZ = (float) 0.0;
+            mLastX = x;
+            mLastY = y;
+            mLastZ = z;
+            tvX.setText(Float.toString(deltaX));
+            tvY.setText(Float.toString(deltaY));
+            tvZ.setText(Float.toString(deltaZ));
+
+
+            // *** Gyroscope ***
+            // If sensor is unreliable, return void
+            if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
+                return;
+            }
+            // Else it will output the Roll, Pitch and Yawn values
+            TextView tgX = (TextView) findViewById(R.id.g_x_axis);
+            TextView tgY = (TextView) findViewById(R.id.g_y_axis);
+            TextView tgZ = (TextView) findViewById(R.id.g_z_axis);
+
+            tgX.setText(Float.toString(event.values[2]));
+            tgY.setText(Float.toString(event.values[1]));
+            tgZ.setText(Float.toString(event.values[0]));
+        }
+
+
+
+    }
+
+    public class PointF
+    {
+        public float x = 0;
+        public float y = 0;
+        public PointF(){};
+        public PointF( float _x, float _y ){ x = _x; y = _y; }
+    }
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
