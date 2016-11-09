@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // InputFilterMinMax function call
                 numberoftraitslistner.setFilters(new InputFilter[]{new InputFilterMinMax("1", "3")});
+                square.removeAllViews();
             }
 
             @Override
@@ -187,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
                 size = 140;
                 break;
             case 3:
-                size = 74;
+                size = 130;
+                //Need to determine a good size for these boxes or change font size.
                 break;
             default:
                 break;
@@ -309,6 +311,58 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case 3:
+                String[] parent1Combo3 = new String[length];
+                String[] parent2Combo3 = new String[length];
+                String parentCombo3Result1 = new String();
+                String parentCombo3Result2 = new String();
+                String parentCombo3Result3 = new String();
+                String parentCombo1ResultFinal3 = new String();
+                String parentCombo2ResultFinal3 = new String();
+                String parentCombo3ResultFinal3 = new String();
+                String parentComboFinal3 = new String();
+                //variable names are messy, will worry about it later.
+
+                int trait3count = 0;
+                for (int i = 0; i < 2; i++){
+                    for (int j = 0; j < 2; j++) {
+                        for (int d = 0; d < 2; d++) {
+                            parent1Combo3[trait3count] = parent1[0][i] + parent1[1][j] + parent1[2][d];
+                            trait3count++;
+                        }
+                    }
+                }
+                trait3count = 0;
+                for (int i = 0; i < 2; i++){
+                    for (int j = 0; j < 2; j++){
+                        for (int d = 0; d < 2; d++) {
+                            parent2Combo3[trait3count] = parent2[0][i] + parent2[1][j] + parent2[2][d];
+                            trait3count++;
+                        }
+                    }
+                }
+
+                for (int i = 0; i < 8; i++) {
+                    ((TextView)((TableRow) square.getChildAt(0)).getChildAt(i+1)).setText(parent1Combo3[i]);
+                }
+                for (int i = 0; i < 8; i++) {
+                    ((TextView)((TableRow) square.getChildAt(i+1)).getChildAt(0)).setText(parent2Combo3[i]);
+                }
+
+                for (int i = 0; i < length; i++) {
+                    for (int j = 0; j < length; j++) {
+                        for (int d = 0; d < length; d++) {
+
+                            parentCombo3Result2 = parent1Combo3[j];
+                            parentCombo3Result1 = parent2Combo3[i];
+                            parentCombo3ResultFinal3 = parentCombo3Result2.substring(2, 3) + parentCombo3Result1.substring(2,3);
+                            parentCombo1ResultFinal3 = parentCombo3Result2.substring(1, 2) + parentCombo3Result1.substring(1, 2);
+                            parentCombo2ResultFinal3 = parentCombo3Result2.substring(0, 1) + parentCombo3Result1.substring(0, 1);
+                            parentComboFinal3 = parentCombo2ResultFinal3 + parentCombo1ResultFinal3 + parentCombo3ResultFinal3;
+
+                            ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentComboFinal3);
+                        }
+                    }
+                }
                 break;
             default:
                 break;
