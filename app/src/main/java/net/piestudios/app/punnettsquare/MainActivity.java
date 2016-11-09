@@ -169,203 +169,207 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
+        try {
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
 
-        parent1 = new String[row1.getChildCount()][2];
-        parent2 = new String[row1.getChildCount()][2];
-        square.removeAllViews();
-        int length = (int) Math.pow(2, row1.getChildCount());
-        int size = 0;
-        switch (row1.getChildCount()) {
-            case 1:
-                size = 250;
-                break;
-            case 2:
-                size = 140;
-                break;
-            case 3:
-                size = 130;
-                //Need to determine a good size for these boxes or change font size.
-                break;
-            default:
-                break;
-        }
-
-
-        TableRow.LayoutParams squareParams = new TableRow.LayoutParams(
-                size,
-                size
-        );
-        squareParams.setMargins(15, 15, 15, 15);
-
-        for (int i = 0; i < row1.getChildCount(); i++) {
-            if (row1.getVirtualChildAt(i) instanceof EditText){
-                parent1[i][0] = ((EditText)row1.getVirtualChildAt(i)).getText().toString().substring(0,1).toUpperCase();
-                parent1[i][1] = ((EditText)row1.getVirtualChildAt(i)).getText().toString().substring(1).toLowerCase();
+            parent1 = new String[row1.getChildCount()][2];
+            parent2 = new String[row1.getChildCount()][2];
+            square.removeAllViews();
+            int length = (int) Math.pow(2, row1.getChildCount());
+            int size = 0;
+            switch (row1.getChildCount()) {
+                case 1:
+                    size = 250;
+                    break;
+                case 2:
+                    size = 140;
+                    break;
+                case 3:
+                    size = 130;
+                    //Need to determine a good size for these boxes or change font size.
+                    break;
+                default:
+                    break;
             }
-        }
 
-        for (int i = 0; i < row2.getChildCount(); i++) {
-            if (row2.getVirtualChildAt(i) instanceof EditText){
-                parent2[i][0] = ((EditText)row2.getVirtualChildAt(i)).getText().toString().substring(0,1).toUpperCase();
-                parent2[i][1] = ((EditText)row2.getVirtualChildAt(i)).getText().toString().substring(1).toLowerCase();
+
+            TableRow.LayoutParams squareParams = new TableRow.LayoutParams(
+                    size,
+                    size
+            );
+            squareParams.setMargins(15, 15, 15, 15);
+
+            for (int i = 0; i < row1.getChildCount(); i++) {
+                if (row1.getVirtualChildAt(i) instanceof EditText) {
+                    parent1[i][0] = ((EditText) row1.getVirtualChildAt(i)).getText().toString().substring(0, 1).toUpperCase();
+                    parent1[i][1] = ((EditText) row1.getVirtualChildAt(i)).getText().toString().substring(1).toLowerCase();
+                }
             }
-        }
 
-        for (int i = 0; i < length + 1; i++) {
-            square.addView(new TableRow(getApplicationContext()));
-            for (int j = 0; j < length + 1; j++) {
-                ((TableRow)square.getChildAt(i)).addView(new TextView(getApplicationContext()));
-                ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.MAGENTA); // Delete this when done testing square creation
-                //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
-                ((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setLayoutParams(squareParams);
+            for (int i = 0; i < row2.getChildCount(); i++) {
+                if (row2.getVirtualChildAt(i) instanceof EditText) {
+                    parent2[i][0] = ((EditText) row2.getVirtualChildAt(i)).getText().toString().substring(0, 1).toUpperCase();
+                    parent2[i][1] = ((EditText) row2.getVirtualChildAt(i)).getText().toString().substring(1).toLowerCase();
+                }
             }
-        }
 
-        //((TextView)((TableRow)square.getChildAt(0)).getChildAt(0)).setBackgroundColor(Color.BLACK);
+            for (int i = 0; i < length + 1; i++) {
+                square.addView(new TableRow(getApplicationContext()));
+                for (int j = 0; j < length + 1; j++) {
+                    ((TableRow) square.getChildAt(i)).addView(new TextView(getApplicationContext()));
+                    ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.MAGENTA); // Delete this when done testing square creation
+                    //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
+                    ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setLayoutParams(squareParams);
+                }
+            }
 
-        // Mapping traits to alleles
-        switch (row1.getChildCount()) {
-            case 1:
+            //((TextView)((TableRow)square.getChildAt(0)).getChildAt(0)).setBackgroundColor(Color.BLACK);
+
+            // Mapping traits to alleles
+            switch (row1.getChildCount()) {
+                case 1:
                 /*((TextView)((TableRow) square.getChildAt(0)).getChildAt(1)).setText(parent1[0][0]);
                 //((TextView)((TableRow) square.getChildAt(0)).getChildAt(2)).setText(parent1[0][1]);
                 //((TextView)((TableRow) square.getChildAt(1)).getChildAt(0)).setText(parent2[0][0]);
                 ((TextView)((TableRow) square.getChildAt(2)).getChildAt(0)).setText(parent2[0][1]);
                 */
-                String[] parent1Combo1 = new String[length];
-                String[] parent2Combo1 = new String[length];
-                String parentCombo1Result1 = new String();
-                String parentCombo1Result2 = new String();
-                String parentCombo1ResultFinal1 = new String();
-                String parentCombo2ResultFinal1 = new String();
+                    String[] parent1Combo1 = new String[length];
+                    String[] parent2Combo1 = new String[length];
+                    String parentCombo1Result1 = new String();
+                    String parentCombo1Result2 = new String();
+                    String parentCombo1ResultFinal1 = new String();
+                    String parentCombo2ResultFinal1 = new String();
 
 
-                for (int i = 0; i < 2; i++) {
-                    ((TextView)((TableRow) square.getChildAt(0)).getChildAt(i+1)).setText(parent1[0][i]);
-                }
-
-                for (int i = 0; i < 2; i++) {
-                    ((TextView)((TableRow) square.getChildAt(i+1)).getChildAt(0)).setText(parent2[0][i]);
-                }
-
-                for (int i = 0; i < 2; i++) {
-                    parent1Combo1[i] = parent1[0][i];
-                    parent2Combo1[i] = parent2[0][i];
-                }
-
-                for (int i = 0; i < length; i++) {
-                    for (int j = 0; j < length; j++) {
-                        parentCombo1Result2 = parent1Combo1[j];
-                        parentCombo1Result1 = parent2Combo1[i];
-                        parentCombo1ResultFinal1 = parentCombo1Result2.substring(1) + parentCombo1Result1.substring(1);
-                        parentCombo2ResultFinal1 = parentCombo1Result2.substring(0) + parentCombo1Result1.substring(0);
-                        parentCombo2ResultFinal1 = parentCombo2ResultFinal1 + parentCombo1ResultFinal1;
-
-                        ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentCombo2ResultFinal1);
+                    for (int i = 0; i < 2; i++) {
+                        ((TextView) ((TableRow) square.getChildAt(0)).getChildAt(i + 1)).setText(parent1[0][i]);
                     }
-                }
-                break;
-            case 2:
-                String[] parent1Combo = new String[length];
-                String[] parent2Combo = new String[length];
-                String parentComboResult1 = new String();
-                String parentComboResult2 = new String();
-                String parentCombo1ResultFinal = new String();
-                String parentCombo2ResultFinal = new String();
 
-                int cnt = 0;
-                for (int i = 0; i < 2; i++){
-                    for (int j = 0; j < 2; j++) {
-                        parent1Combo[cnt] = parent1[0][i] + parent1[1][j];
-                        cnt++;
+                    for (int i = 0; i < 2; i++) {
+                        ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(0)).setText(parent2[0][i]);
                     }
-                }
-                cnt = 0;
-                for (int i = 0; i < 2; i++){
-                    for (int j = 0; j < 2; j++) {
-                        parent2Combo[cnt] = parent2[0][i] + parent2[1][j];
-                        cnt++;
+
+                    for (int i = 0; i < 2; i++) {
+                        parent1Combo1[i] = parent1[0][i];
+                        parent2Combo1[i] = parent2[0][i];
                     }
-                }
-                for (int i = 0; i < 4; i++) {
-                    ((TextView)((TableRow) square.getChildAt(0)).getChildAt(i+1)).setText(parent1Combo[i]);
-                }
-                for (int i = 0; i < 4; i++) {
-                    ((TextView)((TableRow) square.getChildAt(i+1)).getChildAt(0)).setText(parent2Combo[i]);
-                }
 
-                for (int i = 0; i < length; i++) {
-                    for (int j = 0; j < length; j++) {
-                        parentComboResult2 = parent1Combo[j];
-                        parentComboResult1 = parent2Combo[i];
-                        parentCombo1ResultFinal = parentComboResult2.substring(1, 2) + parentComboResult1.substring(1, 2);
-                        parentCombo2ResultFinal = parentComboResult2.substring(0, 1) + parentComboResult1.substring(0, 1);
-                        parentCombo2ResultFinal = parentCombo2ResultFinal + parentCombo1ResultFinal;
+                    for (int i = 0; i < length; i++) {
+                        for (int j = 0; j < length; j++) {
+                            parentCombo1Result2 = parent1Combo1[j];
+                            parentCombo1Result1 = parent2Combo1[i];
+                            parentCombo1ResultFinal1 = parentCombo1Result2.substring(1) + parentCombo1Result1.substring(1);
+                            parentCombo2ResultFinal1 = parentCombo1Result2.substring(0) + parentCombo1Result1.substring(0);
+                            parentCombo2ResultFinal1 = parentCombo2ResultFinal1 + parentCombo1ResultFinal1;
 
-                        ((TextView) ((TableRow) square.getChildAt(i+1)).getChildAt(j+1)).setText(parentCombo2ResultFinal);
-                    }
-                }
-                break;
-            case 3:
-                String[] parent1Combo3 = new String[length];
-                String[] parent2Combo3 = new String[length];
-                String parentCombo3Result1 = new String();
-                String parentCombo3Result2 = new String();
-                String parentCombo3Result3 = new String();
-                String parentCombo1ResultFinal3 = new String();
-                String parentCombo2ResultFinal3 = new String();
-                String parentCombo3ResultFinal3 = new String();
-                String parentComboFinal3 = new String();
-                //variable names are messy, will worry about it later.
-
-                int trait3count = 0;
-                for (int i = 0; i < 2; i++){
-                    for (int j = 0; j < 2; j++) {
-                        for (int d = 0; d < 2; d++) {
-                            parent1Combo3[trait3count] = parent1[0][i] + parent1[1][j] + parent1[2][d];
-                            trait3count++;
+                            ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentCombo2ResultFinal1);
                         }
                     }
-                }
-                trait3count = 0;
-                for (int i = 0; i < 2; i++){
-                    for (int j = 0; j < 2; j++){
-                        for (int d = 0; d < 2; d++) {
-                            parent2Combo3[trait3count] = parent2[0][i] + parent2[1][j] + parent2[2][d];
-                            trait3count++;
+                    break;
+                case 2:
+                    String[] parent1Combo = new String[length];
+                    String[] parent2Combo = new String[length];
+                    String parentComboResult1 = new String();
+                    String parentComboResult2 = new String();
+                    String parentCombo1ResultFinal = new String();
+                    String parentCombo2ResultFinal = new String();
+
+                    int cnt = 0;
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            parent1Combo[cnt] = parent1[0][i] + parent1[1][j];
+                            cnt++;
                         }
                     }
-                }
-
-                for (int i = 0; i < 8; i++) {
-                    ((TextView)((TableRow) square.getChildAt(0)).getChildAt(i+1)).setText(parent1Combo3[i]);
-                }
-                for (int i = 0; i < 8; i++) {
-                    ((TextView)((TableRow) square.getChildAt(i+1)).getChildAt(0)).setText(parent2Combo3[i]);
-                }
-
-                for (int i = 0; i < length; i++) {
-                    for (int j = 0; j < length; j++) {
-                        for (int d = 0; d < length; d++) {
-
-                            parentCombo3Result2 = parent1Combo3[j];
-                            parentCombo3Result1 = parent2Combo3[i];
-                            parentCombo3ResultFinal3 = parentCombo3Result2.substring(2, 3) + parentCombo3Result1.substring(2,3);
-                            parentCombo1ResultFinal3 = parentCombo3Result2.substring(1, 2) + parentCombo3Result1.substring(1, 2);
-                            parentCombo2ResultFinal3 = parentCombo3Result2.substring(0, 1) + parentCombo3Result1.substring(0, 1);
-                            parentComboFinal3 = parentCombo2ResultFinal3 + parentCombo1ResultFinal3 + parentCombo3ResultFinal3;
-
-                            ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentComboFinal3);
+                    cnt = 0;
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            parent2Combo[cnt] = parent2[0][i] + parent2[1][j];
+                            cnt++;
                         }
                     }
-                }
-                break;
-            default:
-                break;
+                    for (int i = 0; i < 4; i++) {
+                        ((TextView) ((TableRow) square.getChildAt(0)).getChildAt(i + 1)).setText(parent1Combo[i]);
+                    }
+                    for (int i = 0; i < 4; i++) {
+                        ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(0)).setText(parent2Combo[i]);
+                    }
+
+                    for (int i = 0; i < length; i++) {
+                        for (int j = 0; j < length; j++) {
+                            parentComboResult2 = parent1Combo[j];
+                            parentComboResult1 = parent2Combo[i];
+                            parentCombo1ResultFinal = parentComboResult2.substring(1, 2) + parentComboResult1.substring(1, 2);
+                            parentCombo2ResultFinal = parentComboResult2.substring(0, 1) + parentComboResult1.substring(0, 1);
+                            parentCombo2ResultFinal = parentCombo2ResultFinal + parentCombo1ResultFinal;
+
+                            ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentCombo2ResultFinal);
+                        }
+                    }
+                    break;
+                case 3:
+                    String[] parent1Combo3 = new String[length];
+                    String[] parent2Combo3 = new String[length];
+                    String parentCombo3Result1 = new String();
+                    String parentCombo3Result2 = new String();
+                    String parentCombo3Result3 = new String();
+                    String parentCombo1ResultFinal3 = new String();
+                    String parentCombo2ResultFinal3 = new String();
+                    String parentCombo3ResultFinal3 = new String();
+                    String parentComboFinal3 = new String();
+                    //variable names are messy, will worry about it later.
+
+                    int trait3count = 0;
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            for (int d = 0; d < 2; d++) {
+                                parent1Combo3[trait3count] = parent1[0][i] + parent1[1][j] + parent1[2][d];
+                                trait3count++;
+                            }
+                        }
+                    }
+                    trait3count = 0;
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            for (int d = 0; d < 2; d++) {
+                                parent2Combo3[trait3count] = parent2[0][i] + parent2[1][j] + parent2[2][d];
+                                trait3count++;
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < 8; i++) {
+                        ((TextView) ((TableRow) square.getChildAt(0)).getChildAt(i + 1)).setText(parent1Combo3[i]);
+                    }
+                    for (int i = 0; i < 8; i++) {
+                        ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(0)).setText(parent2Combo3[i]);
+                    }
+
+                    for (int i = 0; i < length; i++) {
+                        for (int j = 0; j < length; j++) {
+                            for (int d = 0; d < length; d++) {
+
+                                parentCombo3Result2 = parent1Combo3[j];
+                                parentCombo3Result1 = parent2Combo3[i];
+                                parentCombo3ResultFinal3 = parentCombo3Result2.substring(2, 3) + parentCombo3Result1.substring(2, 3);
+                                parentCombo1ResultFinal3 = parentCombo3Result2.substring(1, 2) + parentCombo3Result1.substring(1, 2);
+                                parentCombo2ResultFinal3 = parentCombo3Result2.substring(0, 1) + parentCombo3Result1.substring(0, 1);
+                                parentComboFinal3 = parentCombo2ResultFinal3 + parentCombo1ResultFinal3 + parentCombo3ResultFinal3;
+
+                                ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentComboFinal3);
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Traits can't be empty", Toast.LENGTH_SHORT).show();
         }
     }
 }
