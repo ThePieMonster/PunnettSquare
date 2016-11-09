@@ -1,10 +1,13 @@
 package net.piestudios.app.punnettsquare;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 public class AboutActivity extends AppCompatActivity {
@@ -47,4 +50,11 @@ public class AboutActivity extends AppCompatActivity {
         // ******************** End About ********************
 
     }
+
+    public void sourceLink (View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("https://en.wikipedia.org/wiki/Punnett_square"));
+        startActivity(intent);
+    }
+
 }

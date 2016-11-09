@@ -90,6 +90,42 @@
                 android:adjustViewBounds="true"
                 android:id="@+id/imageViewDihy" />
 
+            <TextView
+                android:text="@string/sourceTitle"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sourceTitle"
+                android:layout_margin="1dp"
+                android:gravity="center" />
+
+            <TextView
+                android:text="@string/sourceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:onClick="sourceLink"
+                android:textColor="#0B0080"
+                android:id="@+id/sourceText"
+                android:layout_margin="1dp" />
+
+            <TextView
+                android:text="@string/authorsTitle"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/authorTitle"
+                android:layout_margin="1dp"
+                android:gravity="center" />
+
+            <TextView
+                android:text="@string/authors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/authors"
+                android:layout_margin="1dp" />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

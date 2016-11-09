@@ -385,7 +385,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 public boolean onPreferenceClick(Preference pref)
                 {
                     counter++; // Increment on every tab
-
+/*
                     if (counter == 1) {
                         Toast.makeText(AboutPreferenceFragment.this.getActivity().getApplicationContext(), "Hey!", Toast.LENGTH_SHORT).show(); }
                     if (counter == 3) {
@@ -397,7 +397,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         Intent intentv = new Intent(AboutPreferenceFragment.this.getActivity().getApplicationContext(), VersionActivity.class);
                         startActivity(intentv);
                     }
-
+*/
+                    if (counter == 5) {
+                        counter = 0;
+                        Intent intentv = new Intent(AboutPreferenceFragment.this.getActivity().getApplicationContext(), VersionActivity.class);
+                        startActivity(intentv);
+                    }
                     return true;
                 }
             });

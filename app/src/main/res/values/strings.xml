@@ -110,9 +110,24 @@
 
 The following example illustrates a dihybrid cross between two double-heterozygote pea plants. R represents the dominant allele for shape (round), while r represents the recessive allele (wrinkled). A represents the dominant allele for color (yellow), while a represents the recessive allele (green). If each plant has the genotype RrAa, and since the alleles for shape and color genes are independent, then they can produce four types of gametes with all possible combinations: RA, Ra, rA, and ra.</string>
 
+    <string name="sourceTitle">\nSource</string>
+    <string name="sourceText"><u>https://en.wikipedia.org/wiki/Punnett_square</u></string>
+
+    <string name="authorsTitle">\nAuthors</string>
+    <string name="authors">
+        Zack Braasch
+        <i>
+        \nItem 1
+        </i>
+        \n\nDavid Keller
+        <i>
+        \nItem 2
+        </i>
+    </string>
+
     <!-- Version -->
     <string name="title_activity_version">Surprise!</string>
     <string name="dummy_button">Button</string>
-    <string name="dummy_content"></string>
+    <string name="dummy_content">Dummy Content</string>
 
 </resources>
