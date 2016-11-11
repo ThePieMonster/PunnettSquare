@@ -1,17 +1,22 @@
 package net.piestudios.app.punnettsquare;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.*;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -26,9 +31,15 @@ import android.hardware.SensorManager;
 import android.content.Context;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -42,9 +53,18 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
     private Sensor mAccelerometer;
     private final float NOISE = (float) 2.0;
 
+    ImageView imageViewChromoX;
+    ImageView imageViewChromoY;
 
+    float gyroXaxis;
+    float gyroYaxis;
+    float gyroZaxis;
 
+    private Matrix matrix = new Matrix();
+    private Matrix savedMatrix = new Matrix();
 
+    int counter = 0;
+    int temp = 0;
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -132,9 +152,6 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         // Create Chromo X & Y images
-        final ImageView imageViewChromoX;
-        final ImageView imageViewChromoY;
-
         imageViewChromoX = (ImageView) findViewById(R.id.chromosome_x);
         Drawable drawableChromoX = getDrawable(R.drawable.chromosome_x);
         imageViewChromoX.setImageDrawable(drawableChromoX);
@@ -142,6 +159,51 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
         imageViewChromoY = (ImageView) findViewById(R.id.chromosome_y);
         Drawable drawableChromoY = getDrawable(R.drawable.chromosome_y);
         imageViewChromoY.setImageDrawable(drawableChromoY);
+
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        final Rect parentRect = new Rect(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        final PointF offsetPoint = new PointF();
+
+
+
+/*
+        imageViewChromoX.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent motionEvent) {
+                final int action = motionEvent.getAction();
+                switch (action & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        offsetPoint.x = motionEvent.getX();
+                        offsetPoint.y = motionEvent.getY();
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        float x = motionEvent.getX();
+                        float y = motionEvent.getY();
+
+                        imageViewChromoX.offsetLeftAndRight((int) (x - offsetPoint.x));
+                        imageViewChromoX.offsetTopAndBottom((int) (y - offsetPoint.y));
+
+                        // check boundaries
+                        if (imageViewChromoX.getRight() > parentRect.right) {
+                            imageViewChromoX.offsetLeftAndRight(-(imageViewChromoX.getRight() - parentRect.right));
+                        } else if (imageViewChromoX.getLeft() < parentRect.left) {
+                            imageViewChromoX.offsetLeftAndRight((parentRect.left - imageViewChromoX.getLeft()));
+                        }
+
+                        if (imageViewChromoX.getBottom() > parentRect.bottom) {
+                            imageViewChromoX.offsetTopAndBottom(-(imageViewChromoX.getBottom() - parentRect.bottom));
+                        } else if (imageViewChromoX.getTop() < parentRect.top) {
+                            imageViewChromoX.offsetTopAndBottom((parentRect.top - imageViewChromoX.getTop()));
+                        }
+
+                        break;
+                }
+                return true;
+            }
+        });
+*/
+
 
         View.OnTouchListener listener = new View.OnTouchListener()
         {
@@ -153,7 +215,6 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
             {
                 if (v.getTag() != null && v.getTag().equals("chromX")) {
                     int eid = event.getAction();
-                    System.out.println("IF");
                     switch (eid)
                     {
                         case MotionEvent.ACTION_MOVE :
@@ -175,7 +236,6 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
                     }
                 }
                 else if (v.getTag() != null && v.getTag().equals("chromY")) {
-                    System.out.println("ELSE");
                     int eid = event.getAction();
                     switch (eid)
                     {
@@ -203,6 +263,9 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
 
         imageViewChromoX.setOnTouchListener(listener);
         imageViewChromoY.setOnTouchListener(listener);
+
+
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         mVisible = true;
@@ -356,13 +419,27 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
             TextView tgY = (TextView) findViewById(R.id.g_y_axis);
             TextView tgZ = (TextView) findViewById(R.id.g_z_axis);
 
-            tgX.setText(Float.toString(event.values[2]));
-            tgY.setText(Float.toString(event.values[1]));
-            tgZ.setText(Float.toString(event.values[0]));
+            gyroXaxis = event.values[2];
+            gyroYaxis = event.values[1];
+            gyroZaxis = event.values[0];
+
+            tgX.setText(Float.toString(gyroXaxis));
+            tgY.setText(Float.toString(gyroYaxis));
+            tgZ.setText(Float.toString(gyroZaxis));
+
+            // testing
+            tvZ.setText("Counter: " + Float.toString(counter));
+
+            temp = (int) gyroYaxis;
+            temp = temp * 1000; // raw values are to small to notice
+            tvY.setText("temp: " + Float.toString(temp));
+
+            //if (counter == 10) {
+                imageMove();
+            //}
+            counter++;
+
         }
-
-
-
     }
 
     public class PointF
@@ -373,7 +450,21 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
         public PointF( float _x, float _y ){ x = _x; y = _y; }
     }
 
+    public void imageMove()
+    {
+        ValueAnimator animator1 = ValueAnimator.ofFloat(gyroYaxis, 0);
+        ValueAnimator animator = ValueAnimator.ofInt(temp);
+        animator.setDuration(1000);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
-
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) imageViewChromoX.getLayoutParams();
+                //lp.setMargins(0, (Integer) animation.getAnimatedValue(), 0, 0);
+                imageViewChromoX.setLayoutParams(lp);
+            }
+        });
+        animator.start();
+    }
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
