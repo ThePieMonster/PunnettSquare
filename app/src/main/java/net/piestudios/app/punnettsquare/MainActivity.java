@@ -9,6 +9,7 @@ import android.graphics.PorterDuff;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +22,13 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.ListPreference;
 import android.content.SharedPreferences;
-
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
 import net.piestudios.app.punnettsquare.InputFilterMinMax;
 import android.text.InputFilter;
 import android.text.Spanned;
+
+import java.lang.reflect.Field;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
     TableRow row1;
     TableRow row2;
 
+    // Adjust box size in table
+    int boxSize1 = 250;
+    int boxSize2 = 170;
+    int boxSize3 = 150;
+
+    // Adjust text sizes in table
+    int txtSize1 = 30;
+    int txtSize2 = 20;
+    int txtSize3 = 12;
+
     // ******************** Start Accent Color ********************
     int[][] states = new int[][] {
             new int[] { android.R.attr.state_focused}, // enabled
@@ -68,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
     };
 
     int[] colors = new int[] {
-            Color.GREEN,
+            Color.GREEN, // textBox underline color active
             //Color.BLUE,
             //Color.YELLOW,
-            Color.GRAY
+            Color.GRAY // textBox underline color inactive
     };
 
     ColorStateList myColorAccentList = new ColorStateList(states, colors);
@@ -130,12 +144,13 @@ public class MainActivity extends AppCompatActivity {
                     if (numberoftraitslistner.getText().toString().length() == 0) {
                         row1.addView(new EditText(getApplicationContext()));
                         //((EditText) row1.getVirtualChildAt(0)).setText("NA");
+
                         ((EditText) row1.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
+
                         row2.addView(new EditText(getApplicationContext()));
                         //((EditText) row2.getVirtualChildAt(0)).setText("NA");
-                        ((EditText) row2.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
 
-                        //Add code to reset boxes after new number is entered
+                        ((EditText) row2.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
                     }
 
 
@@ -151,12 +166,23 @@ public class MainActivity extends AppCompatActivity {
                         //((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.WHITE);
                         //((EditText) row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
                         ((EditText) row1.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+                        // Start - Accent - Cursor color change and size
+                        Field f1 = TextView.class.getDeclaredField("mCursorDrawableRes");
+                        f1.setAccessible(true);
+                        f1.set((EditText) row1.getVirtualChildAt(i), R.drawable.cursor);
+                        // End - Accent - Cursor color change and size
+
                         row2.addView(new EditText(getApplicationContext()));
                         ((EditText) row2.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
                         ((EditText) row2.getVirtualChildAt(i)).setBackgroundTintList(myColorAccentList);
                         //((EditText) row2.getVirtualChildAt(i)).setTextColor(Color.WHITE);
                         //((EditText) row2.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
                         ((EditText) row2.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+                        // Start - Accent - Cursor color change and size
+                        Field f2 = TextView.class.getDeclaredField("mCursorDrawableRes");
+                        f2.setAccessible(true);
+                        f2.set((EditText) row2.getVirtualChildAt(i), R.drawable.cursor);
+                        // End - Accent - Cursor color change and size
                     }
 
 
@@ -183,14 +209,13 @@ public class MainActivity extends AppCompatActivity {
             int size = 0;
             switch (row1.getChildCount()) {
                 case 1:
-                    size = 250;
+                    size = boxSize1;
                     break;
                 case 2:
-                    size = 140;
+                    size = boxSize2;
                     break;
                 case 3:
-                    size = 130;
-                    //Need to determine a good size for these boxes or change font size.
+                    size = boxSize3;
                     break;
                 default:
                     break;
@@ -201,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                     size,
                     size
             );
-            squareParams.setMargins(15, 15, 15, 15);
+            squareParams.setMargins(5, 5, 5, 5);
 
             for (int i = 0; i < row1.getChildCount(); i++) {
                 if (row1.getVirtualChildAt(i) instanceof EditText) {
@@ -221,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                 square.addView(new TableRow(getApplicationContext()));
                 for (int j = 0; j < length + 1; j++) {
                     ((TableRow) square.getChildAt(i)).addView(new TextView(getApplicationContext()));
-                    ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.MAGENTA); // Delete this when done testing square creation
+                    //((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setBackgroundColor(Color.MAGENTA);
                     //((TextView)((TableRow)square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
                     ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setLayoutParams(squareParams);
                 }
@@ -269,6 +294,16 @@ public class MainActivity extends AppCompatActivity {
                             ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentCombo2ResultFinal1);
                         }
                     }
+
+                    // Font size and position
+                    for (int i = 0; i < square.getChildCount(); i++)
+                    {
+                        for (int j = 0; j < ((TableRow) square.getChildAt(i)).getChildCount(); j++)
+                        {
+                            ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextSize(COMPLEX_UNIT_SP, txtSize1);
+                            ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setGravity(Gravity.CENTER);
+                        }
+                    }
                     break;
                 case 2:
                     String[] parent1Combo = new String[length];
@@ -308,6 +343,16 @@ public class MainActivity extends AppCompatActivity {
                             parentCombo2ResultFinal = parentCombo2ResultFinal + parentCombo1ResultFinal;
 
                             ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentCombo2ResultFinal);
+                        }
+                    }
+
+                    // Font size and position
+                    for (int i = 0; i < square.getChildCount(); i++)
+                    {
+                        for (int j = 0; j < ((TableRow) square.getChildAt(i)).getChildCount(); j++)
+                        {
+                            ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextSize(COMPLEX_UNIT_SP, txtSize2);
+                            ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setGravity(Gravity.CENTER);
                         }
                     }
                     break;
@@ -362,6 +407,16 @@ public class MainActivity extends AppCompatActivity {
 
                                 ((TextView) ((TableRow) square.getChildAt(i + 1)).getChildAt(j + 1)).setText(parentComboFinal3);
                             }
+                        }
+                    }
+
+                    // Font size and position
+                    for (int i = 0; i < square.getChildCount(); i++)
+                    {
+                        for (int j = 0; j < ((TableRow) square.getChildAt(i)).getChildCount(); j++)
+                        {
+                            ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextSize(COMPLEX_UNIT_SP, txtSize3);
+                            ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setGravity(Gravity.CENTER);
                         }
                     }
                     break;
