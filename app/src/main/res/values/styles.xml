@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/LimeGreen</item>
         <item name="colorPrimaryDark">@color/DarkLimeGreen</item>
         <item name="colorAccent">@color/Lime</item>
@@ -10,6 +8,20 @@
 
         <item name="android:buttonStyle">@drawable/button_light_selector</item>
         <item name="android:itemBackground">@color/WhiteSmoke</item>
+        <item name="android:itemTextAppearance">@style/MenuTextApearanceLight</item>
+
+        <item name="android:dialogTheme">@style/DialogStyleLight</item>
+        <item name="android:alertDialogTheme">@style/DialogStyleLight</item>
+
+        <item name="android:editTextColor">@color/Black</item>
+        <item name="android:textColorHint">@color/Gray</item>
+        <item name="android:textColorPrimary">@color/Black</item>
+        <item name="android:textColorSecondary">@color/Gray</item>
+        <item name="android:textColorTertiary">@color/Black</item>
+
+        <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
+        <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
     </style>
 
     <style name="AppThemeDark">
@@ -30,16 +42,37 @@
         <item name="android:textColorPrimary">@color/White</item>
         <item name="android:textColorSecondary">@color/Gray</item>
         <item name="android:textColorTertiary">@color/White</item>
+
+        <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
+        <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
+    </style>
+
+    <style name="MenuTextApearanceLight" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/Black</item>
     </style>
 
     <style name="MenuTextApearanceDark" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/White</item>
     </style>
 
-    <style name="DialogStyleDark" parent="android:Theme.Material.Dialog">
+    <style name="DialogStyleLight" parent="android:Theme.Material.Dialog">
+        <item name="android:windowBackground">@color/WhiteSmoke</item>
+        <item name="android:textColorPrimary">@color/Black</item>
+        <item name="android:textColorSecondary">@color/Gray</item>
+        <item name="android:textColorAlertDialogListItem">@color/Black</item>
         <item name="android:colorAccent">@color/Lime</item>
     </style>
 
+    <style name="DialogStyleDark" parent="android:Theme.Material.Dialog">
+        <item name="android:windowBackground">@color/DarkGray</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="android:textColorSecondary">@color/Gray</item>
+        <item name="android:textColorAlertDialogListItem">@color/White</item>
+        <item name="android:colorAccent">@color/Lime</item>
+    </style>
+
+    <!-- Version Activty -->
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>

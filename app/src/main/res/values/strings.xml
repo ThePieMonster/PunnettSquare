@@ -117,11 +117,15 @@ The following example illustrates a dihybrid cross between two double-heterozygo
     <string name="authors">
         Zack Braasch
         <i>
-        \nItem 1
+        \nApplication Struction / Fragments
+        \nUI Design
+        \nThemes
+        \nAbout Section
+        \nEaster Egg
         </i>
         \n\nDavid Keller
         <i>
-        \nItem 2
+        \nTrait computation functions
         </i>
     </string>
 
