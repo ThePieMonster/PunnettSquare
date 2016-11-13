@@ -460,7 +460,7 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) imageViewChromoX.getLayoutParams();
-                //lp.setMargins(0, (Integer) animation.getAnimatedValue(), 0, 0);
+                lp.setMargins(0, (Integer) animation.getAnimatedValue(), 0, 0);
                 imageViewChromoX.setLayoutParams(lp);
             }
         });
