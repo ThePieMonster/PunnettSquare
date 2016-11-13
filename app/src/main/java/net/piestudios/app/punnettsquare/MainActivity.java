@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -144,15 +145,12 @@ public class MainActivity extends AppCompatActivity {
                     if (numberoftraitslistner.getText().toString().length() == 0) {
                         row1.addView(new EditText(getApplicationContext()));
                         //((EditText) row1.getVirtualChildAt(0)).setText("NA");
-
                         ((EditText) row1.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
 
                         row2.addView(new EditText(getApplicationContext()));
                         //((EditText) row2.getVirtualChildAt(0)).setText("NA");
-
                         ((EditText) row2.getVirtualChildAt(0)).setVisibility(View.INVISIBLE);
                     }
-
 
                     // Set numberoftraits to a string (value can be viewed as a toast for testing)
                     numberoftraits = Integer.parseInt(s.toString());
@@ -163,13 +161,24 @@ public class MainActivity extends AppCompatActivity {
                         row1.addView(new EditText(getApplicationContext()));
                         ((EditText) row1.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
                         ((EditText) row1.getVirtualChildAt(i)).setBackgroundTintList(myColorAccentList);
-                        //((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.WHITE);
+                        //((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.BLACK);
                         //((EditText) row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
                         ((EditText) row1.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
                         // Start - Accent - Cursor color change and size
                         Field f1 = TextView.class.getDeclaredField("mCursorDrawableRes");
                         f1.setAccessible(true);
                         f1.set((EditText) row1.getVirtualChildAt(i), R.drawable.cursor);
+                        /*
+                        Field f1SelectHandleLeft = TextView.class.getDeclaredField("mSelectHandleLeft");
+                        Field f1SelectHandleRight = TextView.class.getDeclaredField("mSelectHandleRight");
+                        Field f1SelectHandleMiddle = TextView.class.getDeclaredField("mSelectHandleCenter");
+                        f1SelectHandleLeft.setAccessible(true);
+                        f1SelectHandleRight.setAccessible(true);
+                        f1SelectHandleMiddle.setAccessible(true);
+                        f1SelectHandleLeft.set((EditText) row1.getVirtualChildAt(i), R.drawable.text_select_handle_left);
+                        f1SelectHandleRight.set((EditText) row1.getVirtualChildAt(i), R.drawable.text_select_handle_right);
+                        f1SelectHandleMiddle.set((EditText) row1.getVirtualChildAt(i), R.drawable.text_select_handle_middle);
+                        */
                         // End - Accent - Cursor color change and size
 
                         row2.addView(new EditText(getApplicationContext()));
@@ -182,6 +191,17 @@ public class MainActivity extends AppCompatActivity {
                         Field f2 = TextView.class.getDeclaredField("mCursorDrawableRes");
                         f2.setAccessible(true);
                         f2.set((EditText) row2.getVirtualChildAt(i), R.drawable.cursor);
+                        /*
+                        Field f2SelectHandleLeft = TextView.class.getDeclaredField("mSelectHandleLeft");
+                        Field f2SelectHandleRight = TextView.class.getDeclaredField("mSelectHandleRight");
+                        Field f2SelectHandleMiddle = TextView.class.getDeclaredField("mSelectHandleCenter");
+                        f2SelectHandleLeft.setAccessible(true);
+                        f2SelectHandleRight.setAccessible(true);
+                        f2SelectHandleMiddle.setAccessible(true);
+                        f2SelectHandleLeft.set((EditText) row2.getVirtualChildAt(i), R.drawable.text_select_handle_left);
+                        f2SelectHandleRight.set((EditText) row2.getVirtualChildAt(i), R.drawable.text_select_handle_right);
+                        f2SelectHandleMiddle.set((EditText) row2.getVirtualChildAt(i), R.drawable.text_select_handle_middle);
+                        */
                         // End - Accent - Cursor color change and size
                     }
 
@@ -252,16 +272,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            //((TextView)((TableRow)square.getChildAt(0)).getChildAt(0)).setBackgroundColor(Color.BLACK);
 
             // Mapping traits to alleles
             switch (row1.getChildCount()) {
                 case 1:
-                /*((TextView)((TableRow) square.getChildAt(0)).getChildAt(1)).setText(parent1[0][0]);
-                //((TextView)((TableRow) square.getChildAt(0)).getChildAt(2)).setText(parent1[0][1]);
-                //((TextView)((TableRow) square.getChildAt(1)).getChildAt(0)).setText(parent2[0][0]);
-                ((TextView)((TableRow) square.getChildAt(2)).getChildAt(0)).setText(parent2[0][1]);
-                */
                     String[] parent1Combo1 = new String[length];
                     String[] parent2Combo1 = new String[length];
                     String parentCombo1Result1 = new String();
