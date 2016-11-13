@@ -132,6 +132,6 @@ The following example illustrates a dihybrid cross between two double-heterozygo
     <!-- Version -->
     <string name="title_activity_version">Surprise!</string>
     <string name="dummy_button">Button</string>
-    <string name="dummy_content">Dummy Content</string>
+    <string name="dummy_content"></string>
 
 </resources>

@@ -141,6 +141,9 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
 
         setContentView(R.layout.activity_version);
 
+        // Lock rotation to portait
+        super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -380,9 +383,9 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
     @Override
     public void onSensorChanged(SensorEvent event) {
         // *** Accelerometer ***
-        TextView tvX = (TextView) findViewById(R.id.a_x_axis);
-        TextView tvY = (TextView) findViewById(R.id.a_y_axis);
-        TextView tvZ = (TextView) findViewById(R.id.a_z_axis);
+        //TextView tvX = (TextView) findViewById(R.id.a_x_axis);
+        //TextView tvY = (TextView) findViewById(R.id.a_y_axis);
+        //TextView tvZ = (TextView) findViewById(R.id.a_z_axis);
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
@@ -390,9 +393,9 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
             mLastX = x;
             mLastY = y;
             mLastZ = z;
-            tvX.setText("0.0");
-            tvY.setText("0.0");
-            tvZ.setText("0.0");
+            //tvX.setText("0.0");
+            //tvY.setText("0.0");
+            //tvZ.setText("0.0");
             mInitialized = true;
         } else {
             float deltaX = Math.abs(mLastX - x);
@@ -404,9 +407,9 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
             mLastX = x;
             mLastY = y;
             mLastZ = z;
-            tvX.setText(Float.toString(deltaX));
-            tvY.setText(Float.toString(deltaY));
-            tvZ.setText(Float.toString(deltaZ));
+            //tvX.setText(Float.toString(deltaX));
+            //tvY.setText(Float.toString(deltaY));
+            //tvZ.setText(Float.toString(deltaZ));
 
 
             // *** Gyroscope ***
@@ -427,18 +430,14 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
             tgY.setText(Float.toString(gyroYaxis));
             tgZ.setText(Float.toString(gyroZaxis));
 
-            // testing
-            tvZ.setText("Counter: " + Float.toString(counter));
-
+            // Testing
             temp = (int) gyroYaxis;
             temp = temp * 1000; // raw values are to small to notice
-            tvY.setText("temp: " + Float.toString(temp));
 
             //if (counter == 10) {
-                imageMove();
+                //imageMove();
             //}
             counter++;
-
         }
     }
 
@@ -452,7 +451,6 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
 
     public void imageMove()
     {
-        ValueAnimator animator1 = ValueAnimator.ofFloat(gyroYaxis, 0);
         ValueAnimator animator = ValueAnimator.ofInt(temp);
         animator.setDuration(1000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -460,7 +458,9 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) imageViewChromoX.getLayoutParams();
-                lp.setMargins(0, (Integer) animation.getAnimatedValue(), 0, 0);
+                int animVar = (Integer) animation.getAnimatedValue();
+                //lp.setMargins(0, (Integer) animation.getAnimatedValue(), 0, 0);
+                lp.setMargins(0,0,200,200);
                 imageViewChromoX.setLayoutParams(lp);
             }
         });
