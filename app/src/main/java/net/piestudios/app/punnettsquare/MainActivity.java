@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // ********** Activity **********
+    int themeNum = 0;
+
     // Number of traits box and variable
     EditText numberoftraitslistner;
     int numberoftraits;
@@ -100,9 +102,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         switch(sp.getString("theme_list", "-1")) {
             case "0":
+                themeNum = 0;
                 setTheme(R.style.AppTheme);
                 break;
             case "1":
+                themeNum = 1;
                 setTheme(R.style.AppThemeDark);
                 break;
             default:
@@ -161,9 +165,16 @@ public class MainActivity extends AppCompatActivity {
                         row1.addView(new EditText(getApplicationContext()));
                         ((EditText) row1.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
                         ((EditText) row1.getVirtualChildAt(i)).setBackgroundTintList(myColorAccentList);
-                        //((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.BLACK);
-                        //((EditText) row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
-                        ((EditText) row1.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+
+                        if (themeNum == 0) {
+                            ((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.BLACK);
+                            ((EditText) row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
+                        }
+                        else{
+                            ((EditText) row1.getVirtualChildAt(i)).setTextColor(Color.WHITE);
+                            ((EditText) row1.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
+                        }
+
                         // Start - Accent - Cursor color change and size
                         Field f1 = TextView.class.getDeclaredField("mCursorDrawableRes");
                         f1.setAccessible(true);
@@ -180,13 +191,22 @@ public class MainActivity extends AppCompatActivity {
                         f1SelectHandleMiddle.set((EditText) row1.getVirtualChildAt(i), R.drawable.text_select_handle_middle);
                         */
                         // End - Accent - Cursor color change and size
-
+                        ((EditText) row1.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+                        // +++++++++++++++++++++++++++++++++++++++++++++++++
+                        // +++++++++++++++++++++++++++++++++++++++++++++++++
                         row2.addView(new EditText(getApplicationContext()));
                         ((EditText) row2.getVirtualChildAt(i)).setHint("Trait " + (i + 1) + ":");
                         ((EditText) row2.getVirtualChildAt(i)).setBackgroundTintList(myColorAccentList);
-                        //((EditText) row2.getVirtualChildAt(i)).setTextColor(Color.WHITE);
-                        //((EditText) row2.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
-                        ((EditText) row2.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+
+                        if (themeNum == 0) {
+                            ((EditText) row2.getVirtualChildAt(i)).setTextColor(Color.BLACK);
+                            ((EditText) row2.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
+                        }
+                        else{
+                            ((EditText) row2.getVirtualChildAt(i)).setTextColor(Color.WHITE);
+                            ((EditText) row2.getVirtualChildAt(i)).setHintTextColor(Color.GRAY);
+                        }
+
                         // Start - Accent - Cursor color change and size
                         Field f2 = TextView.class.getDeclaredField("mCursorDrawableRes");
                         f2.setAccessible(true);
@@ -203,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                         f2SelectHandleMiddle.set((EditText) row2.getVirtualChildAt(i), R.drawable.text_select_handle_middle);
                         */
                         // End - Accent - Cursor color change and size
+                        ((EditText) row2.getVirtualChildAt(i)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
                     }
 
 
@@ -309,13 +330,19 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    // Font size and position
+                    // Font size, color and position
                     for (int i = 0; i < square.getChildCount(); i++)
                     {
                         for (int j = 0; j < ((TableRow) square.getChildAt(i)).getChildCount(); j++)
                         {
                             ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextSize(COMPLEX_UNIT_SP, txtSize1);
                             ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setGravity(Gravity.CENTER);
+                            if (themeNum == 0) {
+                                ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
+                            }
+                            else{
+                                ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextColor(Color.WHITE);
+                            }
                         }
                     }
                     break;
@@ -360,13 +387,19 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    // Font size and position
+                    // Font size, color and position
                     for (int i = 0; i < square.getChildCount(); i++)
                     {
                         for (int j = 0; j < ((TableRow) square.getChildAt(i)).getChildCount(); j++)
                         {
                             ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextSize(COMPLEX_UNIT_SP, txtSize2);
                             ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setGravity(Gravity.CENTER);
+                            if (themeNum == 0) {
+                                ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
+                            }
+                            else{
+                                ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextColor(Color.WHITE);
+                            }
                         }
                     }
                     break;
@@ -424,13 +457,19 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    // Font size and position
+                    // Font size, color and position
                     for (int i = 0; i < square.getChildCount(); i++)
                     {
                         for (int j = 0; j < ((TableRow) square.getChildAt(i)).getChildCount(); j++)
                         {
                             ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextSize(COMPLEX_UNIT_SP, txtSize3);
                             ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setGravity(Gravity.CENTER);
+                            if (themeNum == 0) {
+                                ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextColor(Color.BLACK);
+                            }
+                            else{
+                                ((TextView) ((TableRow) square.getChildAt(i)).getChildAt(j)).setTextColor(Color.WHITE);
+                            }
                         }
                     }
                     break;

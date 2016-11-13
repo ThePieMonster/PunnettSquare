@@ -18,10 +18,11 @@
         <item name="android:textColorPrimary">@color/Black</item>
         <item name="android:textColorSecondary">@color/Gray</item>
         <item name="android:textColorTertiary">@color/Black</item>
-
+        <!--
         <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
         <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
         <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
+        -->
     </style>
 
     <style name="AppThemeDark">
@@ -42,10 +43,11 @@
         <item name="android:textColorPrimary">@color/White</item>
         <item name="android:textColorSecondary">@color/Gray</item>
         <item name="android:textColorTertiary">@color/White</item>
-
+        <!--
         <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
         <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
         <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
+        -->
     </style>
 
     <style name="MenuTextApearanceLight" parent="@android:style/TextAppearance.Widget.IconMenu.Item">

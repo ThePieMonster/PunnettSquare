@@ -2,6 +2,7 @@ package net.piestudios.app.punnettsquare;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
@@ -30,6 +31,9 @@ public class AboutActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_about);
         // ******************** End Theme Preferences ********************
+
+        // Lock rotation to portait
+        super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // ******************** Start About ********************
         ImageView imageViewPS;
