@@ -97,7 +97,7 @@
     <string name="pref_about_about_subtitle">A little info about the app</string>
 
     <string name="pref_about_version_title">Version</string>
-    <string name="pref_about_version_subtitle">1.0.0</string>
+    <string name="pref_about_version_subtitle">1.0.1</string>
 
     <string name="PS">Punnette Square</string>
     <string name="PS_C">The Punnett square is a diagram that is used to predict an outcome of a particular cross or breeding experiment. It is named after Reginald C. Punnett, who devised the approach. The diagram is used by biologists to determine the probability of an offspring having a particular genotype. The Punnett square is a tabular summary of possible combinations of maternal alleles with paternal alleles. These tables can be used to examine the genotypic outcome probabilities of the offspring of a single trait (allele), or when crossing multiple traits from the parents.</string>

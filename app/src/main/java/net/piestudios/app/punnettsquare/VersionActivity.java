@@ -418,17 +418,17 @@ public class VersionActivity extends AppCompatActivity implements SensorEventLis
                 return;
             }
             // Else it will output the Roll, Pitch and Yawn values
-            TextView tgX = (TextView) findViewById(R.id.g_x_axis);
-            TextView tgY = (TextView) findViewById(R.id.g_y_axis);
-            TextView tgZ = (TextView) findViewById(R.id.g_z_axis);
+            //TextView tgX = (TextView) findViewById(R.id.g_x_axis);
+            //TextView tgY = (TextView) findViewById(R.id.g_y_axis);
+            //TextView tgZ = (TextView) findViewById(R.id.g_z_axis);
 
             gyroXaxis = event.values[2];
             gyroYaxis = event.values[1];
             gyroZaxis = event.values[0];
 
-            tgX.setText(Float.toString(gyroXaxis));
-            tgY.setText(Float.toString(gyroYaxis));
-            tgZ.setText(Float.toString(gyroZaxis));
+            //tgX.setText(Float.toString(gyroXaxis));
+            //tgY.setText(Float.toString(gyroYaxis));
+            //tgZ.setText(Float.toString(gyroZaxis));
 
             // Testing
             temp = (int) gyroYaxis;
