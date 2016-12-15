@@ -51,8 +51,8 @@
     </style>
 
     <style name="MenuTextApearanceLight" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-        <item name="android:textColor">@color/Black</item>
-    </style>
+    <item name="android:textColor">@color/Black</item>
+</style>
 
     <style name="MenuTextApearanceDark" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/White</item>
